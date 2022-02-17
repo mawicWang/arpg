@@ -36,5 +36,3 @@ frames = SubResource( 6 )
 animation = "Animate"
 offset = Vector2( 8, 8 )
 script = ExtResource( 2 )
-
-[connection signal="animation_finished" from="." to="." method="_on_Effects_animation_finished"]
