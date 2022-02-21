@@ -14,6 +14,10 @@ config/name="arpg"
 run/main_scene="res://World/World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayStatus="*res://Player/PlayStatus.gd"
+
 [display]
 
 window/size/width=320

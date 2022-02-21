@@ -6,9 +6,11 @@ export var ACCELERATION = 400
 
 onready var animationTree = $AnimationTree
 onready var animationPlayer = $AnimationPlayer
+onready var playerStatus = get_node("/root/PlayStatus")
 
 var facingVector = Vector2.DOWN
 var moveVector = Vector2.ZERO
+
 
 var status = RUN
 
@@ -18,6 +20,7 @@ enum {
 
 func _ready():
 	animationTree.active = true
+	playerStatus.connect("no_health", self, "queue_free")
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("attack"):
@@ -76,3 +79,7 @@ func onRollSlowDown():
 func onRollFinished():
 	moveVector = moveVector * 0.8
 	status = RUN
+
+
+func _on_Hurtbox_area_entered(area):
+	playerStatus.health -= 1

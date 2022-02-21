@@ -14,13 +14,21 @@ func _ready():
 	
 
 func _physics_process(delta):
-	# TODO
-	var player = get_parent().get_parent().get_node("Player")
-	var direction = global_position.direction_to(player.position)
-	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
-	animateSprite.flip_h = velocity.x < 0
+	var player = findPlayer()
+	var distance = 9999
+	if (player != null):
+		distance = global_position.distance_squared_to(player.position)
+		var direction = global_position.direction_to(player.position)
+		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
+
+	if (distance < 3600): 
+		velocity = move_and_slide(velocity)
+		animateSprite.flip_h = velocity.x < 0
+		
 	
-	velocity = move_and_slide(velocity)
+func findPlayer(): 
+	# TODO
+	return get_parent().get_parent().get_node("Player")
 
 func _on_Hurtbox_area_entered(area):
 	var deathEffect = DeathEffect.instance()	
